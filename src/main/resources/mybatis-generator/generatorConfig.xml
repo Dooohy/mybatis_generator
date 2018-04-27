@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <properties resource="mybatis-generator/generatorConfig.properties"></properties>
+
+    <context id="MYSQL" targetRuntime="MyBatis3">
+        <!-- 自带插件-->
+
+        <!-- 这个插件可以用来指定列作为主键，即使他们没有严格定义为数据库中的主键。 -->
+        <!--<plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"></plugin>-->
+        <!-- 这个插件生成包含所有生成的SQL映射sqlmap sqlmapconfig文件条目。
+        <plugin type="org.mybatis.generator.plugins.SqlMapConfigPlugin"></plugin> -->
+        <!-- 这个插件将添加selectbyexample方法包括参数生成的映射接口rowbounds。 支持二进制文件操作
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+        <!-- 这个插件会生成一个包含映射条目映射生成SQL mybatis3 mapperconfig文件。
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin"></plugin> -->
+        <!-- 这个插件添加一个缓存单元生成sqlmaps。
+        <plugin type="org.mybatis.generator.plugins.CachePlugin"></plugin> -->
+        <!-- 这个插件显示添加方法实例类使像搜索不区分大小写。 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"></plugin>
+        <!-- 这个插件添加equals() hashcode()方法生成的模型和类。 -->
+        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>-->
+        <!-- 这个插件实现model序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <!-- 这个插件添加toString方法生成的模型和类。 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+
+        <!--第三方插件-->
+        <!-- Example 非空插件-->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleNotNullPlugin"></plugin>
+         <!--Example 目标包修改插件 -->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.ExampleTargetPlugin">-->
+            <!--<property name="targetPackage" value="cn.enn.ygego.sunny.order.dao.example"/>-->
+        <!--</plugin>-->
+        <!-- 数据Model属性对应Column获取插件 -->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin"/>-->
+        <!-- 批量插入 （mybatis 3.3 以前 返回主键有问题）-->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin"></plugin>-->
+        <!--批量更新-->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.BatchUpdatePlugin"></plugin>-->
+        <!--新增或更新-->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.UpsertPlugin"></plugin>-->
+        <!--Example 搜索单条数据-->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"></plugin>
+
+        <!--insert自增主键返回-->
+        <plugin type="com.itfsw.mybatis.generator.plugins.GeneratorKeyPlugin"></plugin>
+
+        <!-- 不生成Example 及 相关方法 统一处理-->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.NoExamplePlugin"></plugin>-->
+
+        <!-- 分页插件 -->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.LimitPlugin"/>-->
+        <!-- 自定义注释插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.CommentPlugin">
+            <!-- 自定义模板路径 -->
+            <property name="template" value="src/main/resources/mybatis-generator/field-comment.ftl"/>
+            <!--<property name="template" value="src/main/resources/default-comment.ftl" />-->
+        </plugin>
+
+        <!-- 此处是将UserMapper.java改名为UserDao.java 当然 想改成什么都行~ -->
+        <!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->
+        <!--<plugin type="com.itfsw.mybatis.generator.plugins.RenameMapperPlugin">-->
+        <!--<property name="mapperSuffix" value="Dao"/>-->
+        <!--<property name="sqlSuffix" value="Dao"/>-->
+        <!--</plugin>-->
+
+        <!--<plugin type="com.freetmp.mbg.plugin.MapperOverwriteEnablePlugin"></plugin>-->
+        <!--<plugin type="com.freetmp.mbg.plugin.ContentMergePlugin">-->
+        <!--<property name="rootDir" value="src\main\java"></property>-->
+        <!--</plugin>-->
+        <!--<plugin type="com.freetmp.mbg.plugin.XMLMergePlugin">-->
+        <!--<property name="rootDir" value="src\main\resources"></property>-->
+        <!--</plugin>-->
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接信息-->
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="${datasource.url}"
+                userId="${datasource.username}"
+                password="${datasource.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${targetPackage.model}" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${targetPackage.xml}" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${targetPackage.mapper}"
+                             targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- ====================================================== -->
+        <!--<table tableName="deliver_bill"></table>
+        <table tableName="deliver_bill_oper_log"></table>
+        <table tableName="deliver_detail"></table>
+        <table tableName="invoice_item"></table>
+        <table tableName="order_change_apply"></table>
+        <table tableName="order_change_detail"></table>
+        <table tableName="order_change_pay_plan"></table>
+        <table tableName="order_detail"></table>
+        <table tableName="order_goods_price_list"></table>
+        <table tableName="order_info"></table>
+        <table tableName="order_info_oper_log"></table>
+        <table tableName="order_invoice_set"></table>
+        <table tableName="order_pay_plan"></table>
+        <table tableName="pay_item"></table>
+        <table tableName="service_bill"></table>
+        <table tableName="service_bill_oper_log"></table>
+        <table tableName="service_detail"></table>
+        <table tableName="service_voucher"></table>
+        <table tableName="take_bill"></table>
+        <table tableName="take_detail"></table>-->
+        <!--<table tableName="bill_in"></table>
+        <table tableName="bill_in_detail"></table<logger name="logback"/>  >
+        <table tableName="bill_out"></table>
+        <table tableName="bill_out_detail"></table>
+        <table tableName="freight_bill"></table>
+        <table tableName="freight_bill_oper_log"></table>
+        <table tableName="freight_detail"></table>
+        <table tableName="return_bill"></table>
+        <table tableName="return_bill_oper_log"></table>
+        <table tableName="return_detail"></table>
+        <table tableName="supply_bill"></table>
+        <table tableName="supply_bill_oper_log"></table>
+        <table tableName="supply_detail"></table>-->
+        <!--<table tableName="take_detail"></table>-->
+        <!--<table tableName="freight_bill"></table>-->
+
+
+
+        <table schema="general" tableName="freight_bill" domainObjectName="FreightBill"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+
+
+
+
+
+
+
+
+    </context>
+</generatorConfiguration>
